@@ -22,7 +22,6 @@ dotenv.config();
 const server = express();
 server.use(
   cors({
-    origin: "http://localhost:5173",
     origin: "https://oscar-frontend-phi.vercel.app",
     credentials: true,
   })
