@@ -47,10 +47,10 @@ const GoogleAuth = () => {
       <button
         type="button"
         onClick={handleGoogleAuth}
-        className="mt-2 px-6 py-4 rounded-lg bg-red-600 text-white w-full hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+        className="mt-2 px-6 py-4 rounded-lg bg-white text-gray-800 border border-gray-300 w-full hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
       >
         <FcGoogle size={24} />
-        <span>CONTINUE WITH GOOGLE</span>
+        <span>Continue with Google</span>
       </button>
     </div>
   );
