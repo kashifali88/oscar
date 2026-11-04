@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
+import GoogleAuth from "./GoogleAuth";
 
 const Login = () => {
   const [login, setLogin] = useState("");
@@ -132,6 +133,8 @@ const Login = () => {
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>
+        <GoogleAuth />
+          </form>
 
         <p className="text-center mt-2 text-sm text-gray-600">
           Don't have an account?
@@ -142,7 +145,6 @@ const Login = () => {
             Register
           </Link>
         </p>
-      </form>
     </div>
   );
 };

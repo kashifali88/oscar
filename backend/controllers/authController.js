@@ -89,6 +89,60 @@ export const Login = catchAsyncError(async(req, res, next) => {
 
 });
 
+// Google login and registration
+export const GoogleLogin = catchAsyncError(async (req, res, next) => {
+  const { username, email, profile } = req.body;
+  if (!username || !email || !profile) {
+    return next(errorHandler(400, "Please fill all required fields"));
+  }
+  // Check existing user
+  let user = await User.findOne({ email });
+
+  // Create new user if not found
+  if (!user) {
+    const randomPassword =
+      Math.random().toString(36).slice(-8) +
+      Math.random().toString(36).slice(-8);
+
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+    user = new User({
+      username:
+        username.split(" ").join("") +
+        Math.random().toString(36).slice(-8),
+      email,
+      password: hashedPassword,
+      profile,
+      authProvider: "google",
+    });
+
+    await user.save();
+  }
+
+  // Generate token
+  const token = jwt.sign(
+    { _id: user._id },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: "7d" }
+  );
+
+  // Set cookie
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  const { password, ...userWithoutPassword } = user._doc;
+
+  return res.status(200).json({
+    success: true,
+    message: "Google authentication successful",
+    userWithOutPassword: userWithoutPassword,
+  });
+});
+
 // logout user
 export const logoutUser = catchAsyncError(async(req, res, next) => {
 res.clearCookie("token");

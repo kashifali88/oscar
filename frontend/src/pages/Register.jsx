@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../store/slices/authSlice.js";
 import { toast } from "react-toastify";
+import GoogleAuth from "./GoogleAuth.jsx";
 
 const Register = () => {
   const [username, setUserName] = useState("");
@@ -71,12 +72,13 @@ const Register = () => {
         >
           {loading ? "Signing up..." : "Sign Up"}
         </button>
+      </form>
+      <GoogleAuth />
 
         <p className="text-center mt-2 text-sm text-gray-600">
           Already have an account?
           <Link to="/login" className="ml-2 text-sky-600 text-md">Login</Link>
         </p>
-      </form>
     </div>
   );
 };
