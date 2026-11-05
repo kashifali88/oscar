@@ -22,6 +22,7 @@ dotenv.config();
 const server = express();
 server.use(
   cors({
+    origin: "https://oscar-frontend-jdsv.onrender.com",
     credentials: true,
   })
 );
