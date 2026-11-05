@@ -22,7 +22,7 @@ dotenv.config();
 const server = express();
 server.use(
   cors({
-    origin: process.env.CLIENT_URL || "https://oscar-frontend-phi.vercel.app",
+    origin: process.env.CLIENT_URL || "https://oscar-2k29.vercel.app",
     credentials: true,
   })
 );
