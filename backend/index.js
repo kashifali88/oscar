@@ -46,18 +46,18 @@ server.use(async (req, res, next) => {
 });
 
 // API ROUTES
-server.use("/api/auth", authRouter);
-server.use("/api/products", productRouter);
-server.use("/api/cart", cartRouter);
-server.use("/api/upload", uploadRouter);
-server.use("/api/subscribe", subscribeRouter);
-server.use("/api/admin/users", userAdminRoutes);
-server.use("/api/user", userRouter);
-server.use("/api/admin/products", productAdminRoute);
-server.use("/api/admin/orders", orderAdminRoute);
-server.use("/api/checkout", checkoutRoute);
-server.use("/api/order", orderRoute);
-server.use("/api/admin/dashboard", adminDashboardRoute);
+server.use("/auth", authRouter);
+server.use("/products", productRouter);
+server.use("/cart", cartRouter);
+server.use("/upload", uploadRouter);
+server.use("/subscribe", subscribeRouter);
+server.use("/admin/users", userAdminRoutes);
+server.use("/user", userRouter);
+server.use("/admin/products", productAdminRoute);
+server.use("/admin/orders", orderAdminRoute);
+server.use("/checkout", checkoutRoute);
+server.use("/order", orderRoute);
+server.use("/admin/dashboard", adminDashboardRoute);
 
 // Error handler
 server.use((err, req, res, next) => {
