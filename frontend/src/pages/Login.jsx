@@ -22,7 +22,6 @@ const Login = () => {
     (state) => state.auth
   );
 
-  // If already logged in, don't remain on the login page.
   useEffect(() => {
     if (user) {
       navigate(user.role === "admin" ? "/admin" : "/", {
@@ -46,10 +45,8 @@ const Login = () => {
 
       toast.success("Logged in successfully!");
 
-      // Use the user returned by the backend.
       const loggedInUser = data.user;
 
-      // Don't redirect back to /login.
       const requestedPath = location.state?.from?.pathname;
       const destination =
         requestedPath && requestedPath !== "/login"
@@ -69,82 +66,100 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full my-12 max-w-md md:max-w-xl flex mx-auto py-12 flex-col bg-gray-100 shadow-lg border rounded-xl border-gray-100 justify-center p-6 sm:p-8 md:p-10">
-      <h1 className="text-center text-2xl font-semibold">
-        Oscar
-      </h1>
+    <div className="w-full max-w-sm mx-auto my-6 px-4">
+      <div className="bg-white border border-gray-200 shadow-md rounded-xl p-5 sm:p-6">
 
-      <h2 className="font-bold text-center text-3xl mt-2">
-        Hey there!
-      </h2>
+        <h1 className="text-center text-xl font-bold text-[#ea2e0e]">
+          Oscar
+        </h1>
 
-      <h3 className="text-center text-gray-600 mt-6">
-        Enter your username or email and password to log in.
-      </h3>
+        <h2 className="text-center text-2xl font-bold mt-2 text-gray-900">
+          Welcome Back!
+        </h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-2 my-4"
-      >
-        <label htmlFor="login">Email or username</label>
+        <p className="text-center text-sm text-gray-500 mt-1">
+          Sign in to continue shopping.
+        </p>
 
-        <input
-          className="px-6 py-4 border border-gray-300 outline-none rounded-lg"
-          type="text"
-          id="login"
-          autoComplete="username"
-          placeholder="Enter your email or username"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
-          required
-        />
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-5">
 
-<div className="flex justify-between items-center">
-  <label htmlFor="password">Password</label>
+          <div>
+            <label
+              htmlFor="login"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email or username
+            </label>
 
-  <Link
-    to="/forgot-password"
-    className="text-sm text-sky-600 hover:underline"
-  >
-    Forgot Password?
-  </Link>
-</div>
-        <input
-          className="px-6 py-4 border border-gray-300 outline-none rounded-lg"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+            <input
+              className="w-full px-3 py-2.5 text-sm border border-gray-300 outline-none rounded-lg focus:ring-2 focus:ring-[#ea2e0e]/20 focus:border-[#ea2e0e]"
+              type="text"
+              id="login"
+              autoComplete="username"
+              placeholder="Enter your email or username"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+              required
+            />
+          </div>
 
-        {error && (
-          <p role="alert" className="text-red-600 text-sm">
-            {typeof error === "string" ? error : error.message}
-          </p>
-        )}
+          <div>
+            <div className="flex justify-between items-center mb-1">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="mt-4 px-6 py-4 rounded-lg bg-black text-white disabled:opacity-50"
-        >
-          {loading ? "Signing in..." : "Sign In"}
-        </button>
-        <GoogleAuth />
-          </form>
+              <Link
+                to="/forgot-password"
+                className="text-xs text-[#ea2e0e] hover:underline"
+              >
+                Forgot Password?
+              </Link>
+            </div>
 
-        <p className="text-center mt-2 text-sm text-gray-600">
+            <input
+              className="w-full px-3 py-2.5 text-sm border border-gray-300 outline-none rounded-lg focus:ring-2 focus:ring-[#ea2e0e]/20 focus:border-[#ea2e0e]"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {error && (
+            <p role="alert" className="text-red-600 text-xs">
+              {typeof error === "string" ? error : error.message}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-1 w-full py-2.5 rounded-lg bg-black text-white text-sm font-semibold hover:bg-[#ea2e0e] transition disabled:opacity-50"
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+
+          <GoogleAuth />
+        </form>
+
+        <p className="text-center mt-4 text-sm text-gray-600">
           Don't have an account?
           <Link
             to="/register"
-            className="ml-2 text-sky-600 text-md"
+            className="ml-1 text-[#ea2e0e] font-medium hover:underline"
           >
             Register
           </Link>
         </p>
+
+      </div>
     </div>
   );
 };
